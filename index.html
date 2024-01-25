@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Website with Sound</title>
+  <style>
+      {
+      margin: 0;
+    }
+    body {
+      width: 100%;
+      height: 100vh;
+      background: url(/Subh/photo-1562408590-e32931084e23 (1).jpeg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    form
+    {
+      width: auto;
+      height: auto;
+      padding: 40px;
+      border-radius: 10px;
+      background: #4A4856B0;
+    }
+    #success#070709{
+  color: #000000;
+  margin-top: -20px;
+
+  display: block;
+}
+
+
+ 
+  </style>
+
+  
+</head>
+<body>
+<video id="video-background" autoplay muted loop>
+    <source src="/Subh/videoplayback.webm" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+    <form name="submit-to-google-sheet">
+      <lable><font color=white>Name:</font></lable>
+      <input type="text" name="Name" ><br><br>
+   
+       <lable><font color=white>Unit:</lable>
+       <input type="text" name="Unit"><br><br>
+        <lable><font color=white>Unit type:</lable>
+        <input type="radio" name="Unit type" value="Kg"><lable><font color=white>Kg</lable>
+         <input type="radio" name="Unit type" value="pises"><lable><font color=white>Pises</lable><br><br>
+         <lable><font color=white>Price:</lable>
+         <input type="text" name="Price"><br><br>
+         <lable><font color=white>Date:</lable>
+         <input type="text" name="Date"><br><br>
+         <lable><font color=white>Remark:</lable>
+         <input type="text" name="Remark" Remark><br><br>
+         <center>
+           
+         <button>Submit</button></center><br><br>
+<span id="success"></span>
+    </form>
+
+  <script>
+    document.querySelectorAll('.custom-button').forEach(function(button) {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        openFile(this.href);
+      });
+    });
+
+    function openFile(fileSrc) {
+      // Check if the file is an image or PDF
+      if (fileSrc.toLowerCase().endsWith(".pdf")) {
+        // Trigger PDF download
+        var a = document.createElement('a');
+        a.href = fileSrc;
+        a.download = fileSrc.split('/').pop();
+        a.click();
+      } else {
+        // Display image (you may add your image display logic here)
+        console.log('Image clicked');
+      }
+    }
+  </script>
+  <script>
+
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzN_s4lGay-izKPZoImMT3y0A86_pofS6BaUTaDSFoGUSPrUA6QlAU43A-Sd1gCVjXM/exec'
+
+  const form = document.forms['submit-to-google-sheet']
+const success = document.getElementById('success')
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {success.innerHTML="Data Successfully Submitted";
+        setTimeout(function(){
+          success.innerHTML="";},5000)
+        form.reset();
+      })
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
+</body>
+</html>
